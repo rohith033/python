@@ -1,25 +1,34 @@
 #the following code implements gradent desent and gives the equation for cost function by using which we can predect the cost of houses.
 import numpy as np 
 import matplotlib.pyplot as plt 
+def multi_variable(price,price_pre):
+    # when u have more than one feature to fit a model based on the distrubution of the data
+    # make a eqn which closely relates to the given data
+    
 def error(price,price_pre):
     cost=np.sum((price-price_pre)**2/len(price))
     return cost
-def gradient_decent(x,y,it=1000,learrning_rate=0.001):
+def gradient_decent(x,y,it=1000,learrning_rate=0.001,n):
     learrning_rate=0.00001
     price=y
-    slope=0.01
-    intercept=0.01
-    n=float(len(x))
+    #slope=0.01
+    #intercept=0.01
+     n=float(len(x))
+    var = np.full((1,n+1),0.001)
+   
     previous_cost=None
     for i in range(it):
         price_pre=slope*x+intercept
         cost = error(price,price_pre)
         if(previous_cost is not None and previous_cost-cost<=1e-6): break
         previous_cost=cost
-        slope_derivative=-2/n*sum(x*(price-price_pre))
-        intercept_derivative=-2/n*sum(price-price_pre)
-        slope=slope-learrning_rate*(slope_derivative)
-        intercept=intercept-learrning_rate*(intercept_derivative)
+        #derivative section
+        for i in range n:
+            # list of slopes of size n+1 where l[0]=1 always
+             der_var[i]=-2/n*sum(x[i]*(price-price_pre))
+             #intercept_derivative=-2/n*sum(price-price_pre)
+        var[i]=var[i]-learning_rate*(der_var[i])
+        #intercept=intercept-learning_rate*(intercept_derivative)
     print(f"slope:{slope},intercept{intercept}")
 def main():
      
